@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmarks loader</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div>
+        
+        <div>
+            <h1 class="header">Bookmarks loader</h2>
+                <ul id="bookmarksList"></ul>
+        </div>
+        <h2 class="subheader">Bookmark Exporter</h1>
+            <div class="container">
+                <button class="btn export" id="exportBtn">Export Bookmarks</button>
+                <button class="btn import" id="importBtn">
+                    Import Bookmarks
+                    <input id="fileInput" type="file" accept=".json" style="display: none;">
+                </button>
+            </div>
+            <div id="loading" style="display: none;">
+                <!-- Add your loading spinner or progress bar here -->
+                <p>Loading bookmarks...</p>
+            </div>
+    </div>
+    <button id="openPopup">Open In-Page Popup</button>
+
+
+</body>
+<!-- <script src="index.js"></script> -->
+<script src="content.js"></script>
+
+</html>
+

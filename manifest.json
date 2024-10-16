@@ -1,0 +1,31 @@
+{
+    "manifest_version": 3,
+    "name": "Bookmark Loader",
+    "version": "1.0",
+    "description": "Retrieve all bookmarks in Chrome",
+    "author": "achraf",
+    "permissions": ["bookmarks","downloads","activeTab"],
+    "background": {
+      "service_worker": "background.js",
+      "type": "module"
+    },
+    "content_scripts": [
+      {
+        "matches": ["*://*/*"],
+        "js": ["content.js"]
+      }
+    ],
+    "action": {
+      "default_popup": "index.html",
+      "default_icon": {
+        "16": "bookmark.png",
+        "48": "bookmark.png",
+        "128": "bookmark.png"
+      }
+    },
+    "icons": {
+      "16": "bookmark.png",
+      "48": "bookmark.png",
+      "128": "bookmark.png"
+    }
+  }
