@@ -4,7 +4,7 @@
     "version": "1.0",
     "description": "Retrieve all bookmarks in Chrome",
     "author": "achraf",
-    "permissions": ["bookmarks","downloads","activeTab"],
+    "permissions": ["bookmarks","downloads","activeTab","tabs"],
     "background": {
       "service_worker": "background.js",
       "type": "module"
@@ -16,7 +16,7 @@
       }
     ],
     "action": {
-      "default_popup": "index.html",
+      "default_popup": "",
       "default_icon": {
         "16": "bookmark.png",
         "48": "bookmark.png",
