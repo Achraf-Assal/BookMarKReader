@@ -43,7 +43,7 @@ function GetCheldrenNode(bookmark) {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'getBookmarks') {
     chrome.bookmarks.getTree(function (bookmarkTreeNodes) {
-      const bookmarksJSON = GetCheldrenNode(bookmarkTreeNodes);
+      var bookmarksJSON = GetCheldrenNode(bookmarkTreeNodes);
       
       chrome.runtime.sendMessage({action: 'sendBookmarks', bookmarks: bookmarksJSON})
     });
