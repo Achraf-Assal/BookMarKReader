@@ -21,15 +21,13 @@ document.getElementById('search').addEventListener('input',async function(){
   var data = []
   var escapedInput = quary.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   var regex = new RegExp(escapedInput, 'i')
-  var value = document.getElementById('search').value;
   VBookmarks = []
-  if (value === '') {
-    data = BOOKMARKS
-  } else {
+  if (this.value !== "") {
     data = await Search(BOOKMARKS,regex)
-  } 
-
-  console.log(data);
+  }else{
+    data = BOOKMARKS
+  }
+  
   displayBookmarks(data)
 }  
 );
@@ -81,8 +79,8 @@ async function SearchLoop(bookmarks, regex) {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'sendBookmarks') {
     const bookmarks = message.bookmarks;
-    BOOKMARKS.push(bookmarks)
-    displayBookmarks(bookmarks); // Function to render bookmarks on the popup
+    BOOKMARKS.push(...bookmarks)
+    displayBookmarks(BOOKMARKS); // Function to render bookmarks on the popup
   }
 });
 
@@ -138,15 +136,15 @@ function BookLoop(bookmarks, list) {
           fileIcon.textContent = '📄'; // File icon
           
           const bookmarkLink = document.createElement('a');
-          bookmarkLink.href = '#'; // Prevent default link behavior
+          bookmarkLink.href = url; 
           bookmarkLink.textContent = title;
           bookmarkLink.className = 'file-link';
   
-          // Handle bookmark click to open in a new tab
-          bookmarkLink.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent the default link behavior
-            chrome.tabs.create({ url }); // Open the bookmark in a new tab
-          });
+          // // Handle bookmark click to open in a new tab
+          // bookmarkLink.addEventListener('click', (e) => {
+          //   e.preventDefault(); // Prevent the default link behavior
+          //   chrome.tabs.create({ url }); // Open the bookmark in a new tab
+          // });
   
           listItem.appendChild(fileIcon);
           listItem.appendChild(bookmarkLink);
