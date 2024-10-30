@@ -16,7 +16,8 @@ function extractFaviconUrl(url) {
   const domain = match ? match[3] : null;                     // main domain part
   
   // Return the full favicon URL if the domain exists, otherwise return a default icon
-  return domain ? `${protocol}${subdomain}${domain}/favicon.ico` : 'https://freesvg.org/img/Simple-Image-Not-Found-Icon.png';
+  // return domain ? `${protocol}${subdomain}${domain}/favicon.ico` : 'https://freesvg.org/img/Simple-Image-Not-Found-Icon.png';
+  return domain ? `https://www.google.com/s2/favicons?sz=64&domain_url=${protocol}${subdomain}${domain}` : 'https://freesvg.org/img/Simple-Image-Not-Found-Icon.png';
 }
 
 function showLoading() {
