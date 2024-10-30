@@ -6,6 +6,18 @@ function debug(text) {
 var BOOKMARKS = []
 var VBookmarks = [];
 
+function extractFaviconUrl(url) {
+  const regex = /^(https?:\/\/)?(www\.)?([^\/]+)/;
+  const match = url.match(regex);
+  
+  // Capture the protocol, www, and domain
+  const protocol = match && match[1] ? match[1] : 'http://'; // default to 'http://' if no protocol found
+  const subdomain = match && match[2] ? match[2] : '';        // 'www.' if present
+  const domain = match ? match[3] : null;                     // main domain part
+  
+  // Return the full favicon URL if the domain exists, otherwise return a default icon
+  return domain ? `${protocol}${subdomain}${domain}/favicon.ico` : 'https://freesvg.org/img/Simple-Image-Not-Found-Icon.png';
+}
 
 function showLoading() {
   document.getElementById('loading').style.display = 'block';
@@ -88,7 +100,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 function displayBookmarks(bookmarks) {
   console.log("display",bookmarks);
   
-  const bookmarkContainer = document.getElementById('bookmark-container');
+  const bookmarkContainer = document.getElementById('bookmarks-container');
   bookmarkContainer.innerHTML = ''; // Clear existing bookmarks
   const rootList = document.createElement('ul');
   bookmarkContainer.appendChild(rootList);
@@ -121,7 +133,7 @@ function BookLoop(bookmarks, list) {
           folderTitle.addEventListener('click', () => {
             sublist.classList.toggle('hidden');
           });
-  
+          listItem.classList.add('Folder');
           listItem.appendChild(folderIcon);
           listItem.appendChild(folderTitle);
           list.appendChild(listItem);
@@ -131,11 +143,13 @@ function BookLoop(bookmarks, list) {
           BookLoop(children, sublist);
         } else if(title || title.trim() !== '') {
           // This is a file (individual bookmark)
-          const fileIcon = document.createElement('span');
+          let fileIcon = document.createElement('img');
           fileIcon.className = 'file-icon';
-          fileIcon.textContent = '📄'; // File icon
+          let favicon = extractFaviconUrl(url);
           
-          const bookmarkLink = document.createElement('a');
+          fileIcon.src = favicon; // File icon
+          
+          let bookmarkLink = document.createElement('a');
           bookmarkLink.href = url; 
           bookmarkLink.textContent = title;
           bookmarkLink.className = 'file-link';
@@ -145,9 +159,9 @@ function BookLoop(bookmarks, list) {
           //   e.preventDefault(); // Prevent the default link behavior
           //   chrome.tabs.create({ url }); // Open the bookmark in a new tab
           // });
-  
-          listItem.appendChild(fileIcon);
-          listItem.appendChild(bookmarkLink);
+          listItem.classList.add('bookmark')
+          listItem.appendChild(fileIcon)
+          listItem.appendChild(bookmarkLink)
           list.appendChild(listItem);
         }
       }

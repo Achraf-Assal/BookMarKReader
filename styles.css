@@ -19,7 +19,7 @@ body {
     width: 100vmax;
   }
   
-  #bookmark-container {
+  #bookmarks-container {
     overflow-y: auto;
     border: 1px solid #ccccccce;
     padding: 10px;
@@ -36,11 +36,35 @@ body {
   li {
     margin: 5px 0;
     cursor: pointer;
+    
   }
-  
+  .bookmark {
+    margin: 5px 0;
+    cursor: pointer;
+    cursor: pointer;
+    display: flex;
+    align-items: center; 
+    padding: 10px;       
+    border: 1px solid #ddd; 
+    border-radius: 5px;  
+    background-color: #f9f9f9; 
+  }
+  .Folder{
+    margin: 5px 0;
+    cursor: pointer;
+    padding: 10px;       
+    border: 1px solid #ddd; 
+    border-radius: 5px;  
+    background-color: #f9f9f9; 
+  }
+
   .folder-icon,
   .file-icon {
-    margin-right: 5px;
+    width: 24px; 
+    height: 24px; 
+    overflow: hidden;
+    border-radius: 50%; 
+    margin-right: 10px; 
   }
   
   .folder-title {
