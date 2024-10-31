@@ -52,42 +52,27 @@ async function Search(bookmarks,regex) {
 }
 
 async function SearchLoop(bookmarks, regex) {
-  console.log('serch loop');
-  console.log("main ",bookmarks);
-  
-  
-  console.log(regex);
+  console.log('Optimized search loop');
+  const stack = [...bookmarks]; // Use a stack for iterative approach
 
-  if (Array.isArray(bookmarks)) {
-    bookmarks.forEach((bookmark) => {
-      const { title, children } = bookmark;
-      console.log('Testing bookmark title:', title);
-      if (title && typeof title === 'string' && title.trim() !== '') {
-        if (title && regex.test(title)) {
-          console.log('Title matched:', title);
-          VBookmarks.push(bookmark);
-          console.log("VBookmarks",VBookmarks);
-          
-        } 
-      }
-      if(Array.isArray(children) || Array.isArray(bookmark)){
-        console.log("repet");
-        if (children) {
-          console.log("children");
-          console.log(children);
-          SearchLoop(children, regex);
-        } else {
-          Array.isArray("bookmark")
-          Array.isArray(bookmark)
-          SearchLoop(bookmark, regex);
-        }
-        
-      }
-      
-    });
+  while (stack.length > 0) {
+    const bookmark = stack.pop();
+
+    if (!bookmark) continue;
+
+    const { title, children } = bookmark;
+    
+    if (title && typeof title === 'string' && regex.test(title)) {
+      VBookmarks.push(bookmark);
+    }
+
+    if (Array.isArray(children)) {
+      stack.push(...children); // Add children to the stack
+    }
   }
-  console.log("last",VBookmarks);
-  return VBookmarks
+  
+  console.log("Final VBookmarks:", VBookmarks);
+  return VBookmarks;
 }
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'sendBookmarks') {
