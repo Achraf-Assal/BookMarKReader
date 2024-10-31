@@ -13,13 +13,18 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 body {
-    font-family: Arial, sans-serif;
-    margin: 10px;
-    height: 100vmax;
-    width: 100vmax;
-  }
+  font-family: Arial, sans-serif;
+  height: 100vh; 
+  overflow-x: hidden;
+  width: 100vw;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  flex-direction: column;
+}
   
   #bookmarks-container {
+    width: 75vw;
     overflow-y: auto;
     border: 1px solid #ccccccce;
     padding: 10px;
@@ -88,4 +93,24 @@ body {
   .hidden {
     display: none;
   }
+  .search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25vh; /* Center vertically */
+  }
+  .search-bar {
+    width: 400px;
+    max-width: 90%; /* Responsive for smaller screens */
+    padding: 12px 20px;
+    font-size: 16px;
+    border: 1px solid #dcdcdc;
+    border-radius: 24px;
+    box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+    outline: none;
+    transition: box-shadow 0.2s ease-in-out;
+  }
   
+  .search-bar:focus {
+    box-shadow: 0 1px 8px rgba(32, 33, 36, 0.4);
+  }
